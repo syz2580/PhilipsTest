@@ -6,7 +6,7 @@ package com.showeasy.philiptest.storage.entity;
 
 public class Bulb {
     /** 序号 */
-    private int id;
+    private String id;
     /** 亮度 */
     private int lumi;
     /** 颜色 */
@@ -14,18 +14,18 @@ public class Bulb {
     /** 开关状态 */
     private boolean isTurnOn;
 
-    public Bulb(int id, int lumi, int color, boolean isTurnOn) {
+    public Bulb(String id, int lumi, int color, boolean isTurnOn) {
         this.id = id;
         this.lumi = lumi;
         this.color = color;
         this.isTurnOn = isTurnOn;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

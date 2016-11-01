@@ -1,4 +1,4 @@
-package com.showeasy.philiptest.framework;
+package com.showeasy.philiptest.framework.listener;
 
 /**
  * Created by 邵一哲_Native on 2016/11/1.

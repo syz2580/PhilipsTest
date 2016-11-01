@@ -28,4 +28,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/huelocalsdk.jar')
     compile files('libs/huesdkresources.jar')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

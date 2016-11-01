@@ -36,9 +36,9 @@ public class BulbManager {
         mBulbList = bulbList;
     }
 
-    public Bulb getBulb(int id) {
+    public Bulb getBulb(String id) {
         for (Bulb b : mBulbList) {
-            if (b.getId() == id) {
+            if (b.getId().equals(id)) {
                 return b;
             }
         }

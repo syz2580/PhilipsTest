@@ -1,9 +1,6 @@
 package com.showeasy.philiptest.philips;
 
-import com.showeasy.philiptest.framework.NotifyListener;
-import com.showeasy.philiptest.storage.entity.Bulb;
-
-import java.util.List;
+import com.showeasy.philiptest.framework.listener.NotifyListener;
 
 /**
  * Created by 邵一哲_Native on 2016/10/31.
@@ -18,6 +15,12 @@ public interface IHue {
         UNKNOWN
         //...可能会有更多灯泡状态
     }
+
+    public void searchBridge();
+
+    public void connectBridge(String ip, String username);
+
+    public void disconnectAll();
 
     /**
      * 获取所有灯泡状态
