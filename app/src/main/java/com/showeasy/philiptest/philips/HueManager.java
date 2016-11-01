@@ -1,7 +1,12 @@
 package com.showeasy.philiptest.philips;
 
+import android.os.Build;
+
+import com.philips.lighting.hue.sdk.PHHueSDK;
+import com.showeasy.philiptest.framework.NotifyListener;
 import com.showeasy.philiptest.storage.entity.Bulb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +16,8 @@ import java.util.List;
 
 public class HueManager implements IHue {
 
+    private PHHueSDK phHueSDK;
+
     private static class HueManagerHolder {
         private static final HueManager instance = new HueManager();
     }
@@ -19,40 +26,52 @@ public class HueManager implements IHue {
     }
     private HueManager() {
         // TODO: 2016/10/31 初始化操作
+        phHueSDK = PHHueSDK.create();
+        phHueSDK.setAppName("PhilipTest");
+        phHueSDK.setDeviceName(Build.MODEL);
+
     }
 
     @Override
-    public List<Bulb> getAllBulbState() {
-        // TODO: 2016/10/31
-        return null;
+    public void getAllBulbState(NotifyListener callback) {
+        List<Bulb> result = new ArrayList<>();
+        // TODO: 2016/11/1
+
+        callback.onNotify(result);
     }
 
     @Override
-    public boolean turnOnBulb(int id) {
-        // TODO: 2016/10/31
-        return false;
+    public void turnOnBulb(int id, NotifyListener callback) {
+        boolean result = false;
+        // TODO: 2016/11/1
+        callback.onNotify(result);
     }
 
     @Override
-    public boolean turnOffBulb(int id) {
-        // TODO: 2016/10/31
-        return false;
+    public void turnOffBulb(int id, NotifyListener callback) {
+        boolean result = false;
+        // TODO: 2016/11/1
+        callback.onNotify(result);
     }
 
     @Override
-    public BulbState getBulbState(int id) {
-        // TODO: 2016/10/31  
-        return null;
+    public void getBulbState(int id, NotifyListener callback) {
+        Bulb result = null;
+        callback.onNotify(result);
     }
 
     @Override
-    public boolean setBulbColor(int id, int color) {
-        return false;
+    public void setBulbColor(int id, int color, NotifyListener callback) {
+        boolean result = false;
+        // TODO: 2016/11/1
+        callback.onNotify(result);
     }
 
     @Override
-    public boolean setBulbLumi(int id, int lumi) {
-        return false;
+    public void setBulbLumi(int id, int lumi, NotifyListener callback) {
+        boolean result = false;
+        // TODO: 2016/11/1
+        callback.onNotify(result);
     }
 
 

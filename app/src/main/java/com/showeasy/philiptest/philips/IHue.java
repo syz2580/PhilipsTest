@@ -1,5 +1,6 @@
 package com.showeasy.philiptest.philips;
 
+import com.showeasy.philiptest.framework.NotifyListener;
 import com.showeasy.philiptest.storage.entity.Bulb;
 
 import java.util.List;
@@ -22,28 +23,28 @@ public interface IHue {
      * 获取所有灯泡状态
      * @return
      */
-    public List<Bulb> getAllBulbState();
+    public void getAllBulbState(NotifyListener callback);
 
     /**
      * 开灯
      * @param id 灯泡id
      * @return 返回开启是否成功
      */
-    public boolean turnOnBulb(int id);
+    public void turnOnBulb(int id, NotifyListener callback);
 
     /**
      * 关灯
      * @param id 灯泡id
      * @return 返回关闭是否成功
      */
-    public boolean turnOffBulb(int id);
+    public void turnOffBulb(int id, NotifyListener callback);
 
     /**
      * 获取灯泡状态
      * @param id
      * @return
      */
-    public BulbState getBulbState(int id);
+    public void getBulbState(int id, NotifyListener callback);
 
     /**
      * 设置灯泡颜色
@@ -51,7 +52,7 @@ public interface IHue {
      * @param color
      * @return
      */
-    public boolean setBulbColor(int id, int color);
+    public void setBulbColor(int id, int color, NotifyListener callback);
 
     /**
      * 设置灯泡亮度
@@ -59,6 +60,6 @@ public interface IHue {
      * @param lumi
      * @return
      */
-    public boolean setBulbLumi(int id, int lumi);
+    public void setBulbLumi(int id, int lumi, NotifyListener callback);
 
 }
