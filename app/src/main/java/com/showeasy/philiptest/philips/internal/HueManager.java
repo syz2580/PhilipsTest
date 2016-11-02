@@ -81,7 +81,7 @@ public class HueManager implements IHue, ILight {
     @Override
     public void setBulbColor(int id, int color, final NotifyListener callback) {
         // TODO: 2016/11/1
-        PHLight light = mLights.get(id);
+        PHLight light = mLights.get(id +"");
         PHBridge bridge = phHueSDK.getSelectedBridge();
         PHLightState lightState = new PHLightState();
 
@@ -129,13 +129,13 @@ public class HueManager implements IHue, ILight {
         for (PHLight light : lights) {
             PHLightState state = light.getLastKnownLightState();
             Bulb bulb = new Bulb.Builder()
-                    .id(light.getUniqueId()) //这个id应该是应用确定的id，但目前应用还没定下来，id规则无法设计
+                    .id(light.getIdentifier()) //这个id应该是应用确定的id，但目前应用还没定下来，id规则无法设计
                     .color(state.getHue())
                     .lumi(state.getBrightness())
                     .turnOn(state.isOn())
                     .build();
-            mBulbs.put(light.getUniqueId(), bulb);
-            mLights.put(light.getUniqueId(), light);
+            mBulbs.put(light.getIdentifier(), bulb);
+            mLights.put(light.getIdentifier(), light);
         }
         return mBulbs;
     }

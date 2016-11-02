@@ -1,5 +1,8 @@
 package com.showeasy.philiptest.storage.entity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by 邵一哲_Native on 2016/10/31.
  */
@@ -72,5 +75,20 @@ public class Bulb {
 
     public void setTurnOn(boolean turnOn) {
         isTurnOn = turnOn;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id",id);
+            json.put("color",color);
+            json.put("lumi",lumi);
+            json.put("isOn",isTurnOn);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
     }
 }

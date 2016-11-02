@@ -15,4 +15,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="连接"/>
+    <Button
+        android:id="@+id/btn_change_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_connect_bridge"
+        android:text="换1号灯颜色"/>
+    <TextView
+        android:id="@+id/tv_bulb_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_connect_bridge"/>
 </RelativeLayout>
