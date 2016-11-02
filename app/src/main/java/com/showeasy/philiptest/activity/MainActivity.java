@@ -40,7 +40,11 @@ public class MainActivity extends BaseActivity {
                 mHue.connectBridge("10.241.12.109:8000","newdeveloper");
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         EventBus.getDefault().register(this);
     }
 
@@ -56,6 +60,11 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mHue.disconnectAll();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
