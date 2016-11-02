@@ -8,26 +8,12 @@ import com.showeasy.philiptest.framework.listener.NotifyListener;
  */
 
 public interface IHue {
-
-    public enum BulbState{
-        OPEN,
-        CLOSE,
-        UNKNOWN
-        //...可能会有更多灯泡状态
-    }
-
+    
     public void searchBridge();
 
     public void connectBridge(String ip, String username);
 
     public void disconnectAll();
-
-    /**
-     * 获取所有灯泡状态
-     * @return
-     */
-    public void getAllBulbState(NotifyListener callback);
-
     /**
      * 开灯
      * @param id 灯泡id
@@ -41,13 +27,6 @@ public interface IHue {
      * @return 返回关闭是否成功
      */
     public void turnOffBulb(int id, NotifyListener callback);
-
-    /**
-     * 获取灯泡状态
-     * @param id
-     * @return
-     */
-    public void getBulbState(int id, NotifyListener callback);
 
     /**
      * 设置灯泡颜色

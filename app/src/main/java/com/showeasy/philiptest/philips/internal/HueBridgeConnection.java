@@ -1,4 +1,4 @@
-package com.showeasy.philiptest.philips;
+package com.showeasy.philiptest.philips.internal;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;

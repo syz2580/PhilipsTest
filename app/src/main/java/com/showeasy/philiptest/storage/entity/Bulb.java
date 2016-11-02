@@ -14,11 +14,32 @@ public class Bulb {
     /** 开关状态 */
     private boolean isTurnOn;
 
-    public Bulb(String id, int lumi, int color, boolean isTurnOn) {
-        this.id = id;
-        this.lumi = lumi;
-        this.color = color;
-        this.isTurnOn = isTurnOn;
+    private Bulb() {}
+
+    public static class Builder {
+        public Bulb mBulb;
+        public Builder() {
+            mBulb = new Bulb();
+        }
+        public Builder id(String id) {
+            mBulb.setId(id);
+            return this;
+        }
+        public Builder lumi(int lumi) {
+            mBulb.setLumi(lumi);
+            return this;
+        }
+        public Builder color(int color) {
+            mBulb.setColor(color);
+            return this;
+        }
+        public Builder turnOn(boolean isTurnOn) {
+            mBulb.setTurnOn(isTurnOn);
+            return this;
+        }
+        public Bulb build() {
+            return mBulb;
+        }
     }
 
     public String getId() {

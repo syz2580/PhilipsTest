@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.showeasy.philiptest.R;
-import com.showeasy.philiptest.philips.HueManager;
+import com.showeasy.philiptest.philips.internal.HueManager;
 import com.showeasy.philiptest.philips.IHue;
 
 public class MainActivity extends AppCompatActivity {
