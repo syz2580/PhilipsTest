@@ -7,6 +7,7 @@ import com.philips.lighting.hue.sdk.PHMessageType;
 import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
+import com.showeasy.philiptest.event.HomeEvent;
 import com.showeasy.philiptest.storage.SharedPrefsManager;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class HueBridgeConnection {
             phHueSDK.getLastHeartbeat().put(b.getResourceCache().getBridgeConfiguration().getIpAddress(), System.currentTimeMillis());
             SharedPrefsManager.getInstance().setLastConnectedIPAddress(b.getResourceCache().getBridgeConfiguration().getIpAddress());
             SharedPrefsManager.getInstance().setLastConnectedUsername(username);
+            HomeEvent.post(HomeEvent.TYPE_BRIDGE_CONNECT);
             // TODO: 2016/11/1 Notify UI
             // Here it is recommended to set your connected bridge in your sdk object (as above) and start the heartbeat.
             // At this point you are connected to a bridge so you should pass control to your main program/activity.

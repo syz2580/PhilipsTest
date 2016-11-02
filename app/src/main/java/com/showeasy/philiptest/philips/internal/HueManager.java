@@ -2,15 +2,21 @@ package com.showeasy.philiptest.philips.internal;
 
 import android.os.Build;
 
+import com.philips.lighting.hue.listener.PHLightListener;
 import com.philips.lighting.hue.sdk.PHHueSDK;
+import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHBridge;
+import com.philips.lighting.model.PHBridgeResource;
 import com.philips.lighting.model.PHBridgeResourcesCache;
+import com.philips.lighting.model.PHHueError;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
+import com.showeasy.philiptest.R;
 import com.showeasy.philiptest.framework.listener.NotifyListener;
 import com.showeasy.philiptest.philips.IHue;
 import com.showeasy.philiptest.philips.ILight;
 import com.showeasy.philiptest.storage.entity.Bulb;
+import com.showeasy.philiptest.util.MiscUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +33,7 @@ public class HueManager implements IHue, ILight {
     private HueBridgeConnection connection;
     private PHBridgeResourcesCache mCache;
     private Map<String, Bulb> mBulbs;
+    private Map<String, PHLight> mLights;
 
     private static class HueManagerHolder {
         private static final HueManager instance = new HueManager();
@@ -37,7 +44,7 @@ public class HueManager implements IHue, ILight {
     private HueManager() {
         // TODO: 2016/10/31 初始化操作
         phHueSDK = PHHueSDK.create();
-        phHueSDK.setAppName("PhilipTest");
+        phHueSDK.setAppName(MiscUtil.getApplicationContext().getString(R.string.app_name));
         phHueSDK.setDeviceName(Build.MODEL);
         connection = new HueBridgeConnection(phHueSDK);
     }
@@ -72,15 +79,38 @@ public class HueManager implements IHue, ILight {
     }
 
     @Override
-    public void setBulbColor(int id, int color, NotifyListener callback) {
-        boolean result = false;
+    public void setBulbColor(int id, int color, final NotifyListener callback) {
         // TODO: 2016/11/1
+        PHLight light = mLights.get(id);
         PHBridge bridge = phHueSDK.getSelectedBridge();
         PHLightState lightState = new PHLightState();
-        lightState.setHue(12345);
-        PHLight light;
 
-        callback.onNotify(result);
+        float[] xy = PHUtilities.calculateXY(color, light.getModelNumber());
+        lightState.setX(xy[0]);
+        lightState.setY(xy[1]);
+        if (null != callback) {
+            bridge.updateLightState(light, lightState, new PHLightListener() {
+                @Override
+                public void onReceivingLightDetails(PHLight phLight) {}
+                @Override
+                public void onReceivingLights(List<PHBridgeResource> list) {}
+                @Override
+                public void onSearchComplete() {}
+                @Override
+                public void onSuccess() {}
+                @Override
+                public void onError(int i, String s) {
+                    callback.onNotify(false);
+                }
+                @Override
+                public void onStateUpdate(Map<String, String> map, List<PHHueError> list) {
+                    callback.onNotify(true);
+                }
+            });
+        } else {
+            bridge.updateLightState(light, lightState);
+        }
+
     }
 
     @Override
@@ -95,6 +125,7 @@ public class HueManager implements IHue, ILight {
         mCache = phHueSDK.getSelectedBridge().getResourceCache();
         List<PHLight> lights = mCache.getAllLights();
         mBulbs = new HashMap<>();
+        mLights = new HashMap<>();
         for (PHLight light : lights) {
             PHLightState state = light.getLastKnownLightState();
             Bulb bulb = new Bulb.Builder()
@@ -104,6 +135,7 @@ public class HueManager implements IHue, ILight {
                     .turnOn(state.isOn())
                     .build();
             mBulbs.put(light.getUniqueId(), bulb);
+            mLights.put(light.getUniqueId(), light);
         }
         return mBulbs;
     }
