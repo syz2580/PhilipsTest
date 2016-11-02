@@ -8,7 +8,7 @@ import com.showeasy.philiptest.framework.listener.NotifyListener;
  */
 
 public interface IHue {
-    
+
     public void searchBridge();
 
     public void connectBridge(String ip, String username);
