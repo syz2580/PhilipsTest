@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.showeasy.philiptest.R;
+import com.showeasy.philiptest.context.Constants;
 import com.showeasy.philiptest.event.HomeEvent;
 import com.showeasy.philiptest.framework.listener.NotifyListener;
 import com.showeasy.philiptest.philips.ILight;
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
         mBtnConnectBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHue.connectBridge("10.0.0.3:8000","newdeveloper");
+                mHue.connectBridge(Constants.DEFAULT_IP + ":8000",Constants.DEFAULT_USER);
             }
         });
 
