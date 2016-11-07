@@ -11,11 +11,13 @@ import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHHueError;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
+import com.philips.lighting.model.PHSchedule;
 import com.showeasy.philiptest.R;
 import com.showeasy.philiptest.framework.listener.NotifyListener;
 import com.showeasy.philiptest.philips.IHue;
 import com.showeasy.philiptest.philips.ILight;
 import com.showeasy.philiptest.storage.entity.Bulb;
+import com.showeasy.philiptest.util.ColorUtil;
 import com.showeasy.philiptest.util.MiscUtil;
 
 import java.util.HashMap;
@@ -128,12 +130,19 @@ public class HueManager implements IHue, ILight {
         mLights = new HashMap<>();
         for (PHLight light : lights) {
             PHLightState state = light.getLastKnownLightState();
-            Bulb bulb = new Bulb.Builder()
+            Bulb.Builder builder = new Bulb.Builder()
                     .id(light.getIdentifier()) //这个id应该是应用确定的id，但目前应用还没定下来，id规则无法设计
-                    .color(state.getHue())
                     .lumi(state.getBrightness())
                     .turnOn(state.isOn())
-                    .build();
+                    .name("灯泡" + light.getIdentifier());
+
+            if (state.getColorMode() == PHLight.PHLightColorMode.COLORMODE_XY) {
+                builder.color(ColorUtil.XYtoRGB(state.getX(),state.getY(),state.getBrightness()));
+            } else if (state.getColorMode() == PHLight.PHLightColorMode.COLORMODE_HUE_SATURATION){
+                float[] hsv = new float[]{state.getHue()/65536.0f*360.0f, state.getSaturation()/254.0f, state.getBrightness()/254.0f};
+                builder.color(ColorUtil.HSVToColor(hsv));
+            }
+            Bulb bulb = builder.build();
             mBulbs.put(light.getIdentifier(), bulb);
             mLights.put(light.getIdentifier(), light);
         }

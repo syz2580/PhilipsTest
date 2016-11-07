@@ -11,11 +11,14 @@ public class Bulb {
     /** 序号 */
     private String id;
     /** 亮度 */
-    private int lumi;
+    private int lumi = -1;
     /** 颜色 */
     private int color;
     /** 开关状态 */
     private boolean isTurnOn;
+
+    /** 名字 */
+    private String name;
 
     private Bulb() {}
 
@@ -40,6 +43,10 @@ public class Bulb {
             mBulb.setTurnOn(isTurnOn);
             return this;
         }
+        public Builder name(String name) {
+            mBulb.setName(name);
+            return this;
+        }
         public Bulb build() {
             return mBulb;
         }
@@ -61,6 +68,14 @@ public class Bulb {
         this.lumi = lumi;
     }
 
+    public boolean isTurnOn() {
+        return isTurnOn;
+    }
+
+    public void setTurnOn(boolean turnOn) {
+        isTurnOn = turnOn;
+    }
+
     public int getColor() {
         return color;
     }
@@ -69,12 +84,12 @@ public class Bulb {
         this.color = color;
     }
 
-    public boolean isTurnOn() {
-        return isTurnOn;
+    public String getName() {
+        return name;
     }
 
-    public void setTurnOn(boolean turnOn) {
-        isTurnOn = turnOn;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.showeasy.philiptest.philips.internal.HueManager;
 import com.showeasy.philiptest.philips.IHue;
 import com.showeasy.philiptest.storage.entity.Bulb;
 import com.showeasy.philiptest.util.DoubleClickExitHelper;
+import com.showeasy.philiptest.util.LaunchUtil;
 import com.showeasy.philiptest.util.MiscUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity {
         mBtnConnectBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHue.connectBridge("10.241.12.109:8000","newdeveloper");
+                mHue.connectBridge("10.0.0.3:8000","newdeveloper");
             }
         });
 
@@ -58,16 +59,24 @@ public class MainActivity extends BaseActivity {
         mBtnChangeColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHue.setBulbColor(1, 0x000588, new NotifyListener() {
+                NotifyListener callback =  new NotifyListener() {
                     @Override
                     public void onNotify(Object result) {
                         printBulbMessage();
                     }
-                });
+                };
+                mHue.setBulbColor(1, 0x000588, callback);
             }
         });
 
         mTvBulbMessage = (TextView) findViewById(R.id.tv_bulb_msg);
+
+        findViewById(R.id.btn_light_control).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LaunchUtil.launchLightControlActivity(MainActivity.this);
+            }
+        });
 
     }
 
