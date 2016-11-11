@@ -3,6 +3,7 @@ package com.showeasy.philiptest.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.showeasy.philiptest.PTException;
 import com.showeasy.philiptest.util.MiscUtil;
 
@@ -16,6 +17,8 @@ public class SharedPrefsManager {
 
     private static final String LAST_CONNECTED_IP = "lastconnectedip";
     private static final String LAST_CONNECTED_USERNAME = "lastconnectedusername";
+    private static final String ACCOUNT_NAME = "accountname";
+    private static final String ACCOUNT_TOKEN = "accounttoken";
 
     protected SharedPreferences mSP = null;
 
@@ -185,5 +188,24 @@ public class SharedPrefsManager {
 
     public void setLastConnectedUsername(String username) {
         setString(LAST_CONNECTED_USERNAME,username);
+    }
+
+    public void setLoginInfo(LoginInfo info) {
+        setString(ACCOUNT_NAME, info.getAccount());
+        setString(ACCOUNT_TOKEN, info.getToken());
+    }
+
+    public LoginInfo getLoginInfo() throws PTException {
+        String account = getString(ACCOUNT_NAME);
+        if (account.isEmpty()) {
+            return null;
+        }
+        String token = getString(ACCOUNT_TOKEN);
+        return new LoginInfo(account, token);
+    }
+
+    public void removeLoginInfo() {
+        remove(ACCOUNT_NAME);
+        remove(ACCOUNT_TOKEN);
     }
 }
