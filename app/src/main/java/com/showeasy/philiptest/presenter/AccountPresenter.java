@@ -46,6 +46,11 @@ public class AccountPresenter {
         return null;
     }
 
+    public static void logout() {
+        NIMClient.getService(AuthService.class).logout();
+        SharedPrefsManager.getInstance().removeLoginInfo();
+    }
+
     private static void doLogin(LoginInfo loginInfo, final NotifyListener finishListener) {
         RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
             @Override
