@@ -25,7 +25,7 @@ public class AccountPresenter {
                     @Override
                     public LoginInfo call(AccountInfo accountInfo) {
 
-                        // TODO: 2016/11/11 从app服务器获取token
+                        // TODO: 2016/11/11 从app服务器获取token及用户信息
                         return null;
                     }
                 })
