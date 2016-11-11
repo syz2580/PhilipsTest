@@ -12,6 +12,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.showeasy.philiptest.activity.MainActivity;
+import com.showeasy.philiptest.presenter.AccountPresenter;
 import com.showeasy.philiptest.util.DisplayUtil;
 import com.showeasy.philiptest.util.MiscUtil;
 
@@ -25,7 +26,7 @@ public class PhilipsTestApplication extends Application {
         super.onCreate();
         MiscUtil.setApplicationContext(this);
         SDKOptions options = new SDKOptions();
-        NIMClient.init(this, loginInfo(), options());
+        NIMClient.init(this, AccountPresenter.getLoginInfo(), options());
     }
 
     // 如果返回值为 null，则全部使用默认参数。
@@ -87,8 +88,5 @@ public class PhilipsTestApplication extends Application {
             }
         };
         return options;
-    }
-    private LoginInfo loginInfo() {
-        return null;
     }
 }
