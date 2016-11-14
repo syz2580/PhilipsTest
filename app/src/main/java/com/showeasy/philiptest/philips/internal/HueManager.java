@@ -124,7 +124,14 @@ public class HueManager implements IHue, ILight {
 
     @Override
     public Map<String, Bulb> getAllBulbs() {
-        mCache = phHueSDK.getSelectedBridge().getResourceCache();
+        PHBridge bridge = phHueSDK.getSelectedBridge();
+        if (null == bridge) {
+            return new HashMap<>();
+        }
+        mCache = bridge.getResourceCache();
+        if (null == mCache) {
+            return new HashMap<>();
+        }
         List<PHLight> lights = mCache.getAllLights();
         mBulbs = new HashMap<>();
         mLights = new HashMap<>();

@@ -14,7 +14,7 @@ import com.showeasy.philiptest.AppManager;
 
 public class BaseActivity extends AppCompatActivity {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //禁止横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

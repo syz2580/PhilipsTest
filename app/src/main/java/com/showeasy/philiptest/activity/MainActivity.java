@@ -1,5 +1,6 @@
 package com.showeasy.philiptest.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.showeasy.philiptest.storage.entity.Bulb;
 import com.showeasy.philiptest.util.DoubleClickExitHelper;
 import com.showeasy.philiptest.util.LaunchUtil;
 import com.showeasy.philiptest.util.MiscUtil;
+import com.showeasy.philiptest.view.colorpicker.Test;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity {
     TextView mTvBulbMessage;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDoubleClickExitHelper = new DoubleClickExitHelper(this);
@@ -60,13 +62,15 @@ public class MainActivity extends BaseActivity {
         mBtnChangeColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotifyListener callback =  new NotifyListener() {
+/*                NotifyListener callback =  new NotifyListener() {
                     @Override
                     public void onNotify(Object result) {
                         printBulbMessage();
                     }
                 };
-                mHue.setBulbColor(1, 0x000588, callback);
+                mHue.setBulbColor(1, 0x000588, callback);*/
+                Intent intent = new Intent(MainActivity.this,Test.class);
+                startActivity(intent);
             }
         });
 
@@ -75,7 +79,8 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_light_control).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LaunchUtil.launchLightControlActivity(MainActivity.this);
+//                LaunchUtil.launchLightControlActivity(MainActivity.this);
+                LaunchUtil.launchTabActivity(MainActivity.this);
             }
         });
 

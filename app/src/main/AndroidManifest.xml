@@ -3,16 +3,18 @@
     package="com.showeasy.philiptest">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <permission android:name="com.showeasy.philiptest.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.showeasy.philiptest.RECEIVE_MSG"/>
+    <permission
+        android:name="com.showeasy.philiptest.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.showeasy.philiptest.RECEIVE_MSG" />
 
     <application
         android:name=".PhilipsTestApplication"
@@ -27,44 +29,45 @@
         <!-- 声明云信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
-            android:process=":core"/>
-
+            android:process=":core" />
         <service
             android:name="com.netease.nimlib.service.NimService$Aux"
-            android:process=":core"/>
+            android:process=":core" />
 
-        <!-- 云信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
-            保持和 NimService 同一进程 -->
-        <receiver android:name="com.netease.nimlib.service.NimReceiver"
-            android:process=":core"
-            android:exported="false">
+        <!--
+             云信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
+            保持和 NimService 同一进程
+        -->
+        <receiver
+            android:name="com.netease.nimlib.service.NimReceiver"
+            android:exported="false"
+            android:process=":core">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
         <!-- 云信进程间通信 Receiver -->
-        <receiver android:name="com.netease.nimlib.service.ResponseReceiver"/>
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
 
         <!-- 安卓保活配置 -->
         <service
             android:name="com.netease.cosine.core.CosineService"
-            android:process=":cosine">
-        </service>
+            android:process=":cosine" />
 
         <receiver
             android:name="com.netease.cosine.target.CosineReceiver"
             android:exported="true"
-            android:process=":cosine">
-        </receiver>
+            android:process=":cosine" />
 
         <meta-data
             android:name="com.netease.cosine.target"
-            android:value=""/>
+            android:value="" />
         <meta-data
             android:name="com.netease.cosine.target.receiver"
-            android:value="com.netease.nimlib.service.NimReceiver"/>
+            android:value="com.netease.nimlib.service.NimReceiver" />
+
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -76,8 +79,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LightControlActivity"></activity>
-        <activity android:name=".view.colorpicker.Test"/>
+        <activity android:name=".activity.LightControlActivity" />
+        <activity android:name=".view.colorpicker.Test" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LaunchActivity" />
+        <activity android:name=".activity.TabActivity"></activity>
     </application>
 
 </manifest>
