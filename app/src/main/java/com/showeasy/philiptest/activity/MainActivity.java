@@ -84,6 +84,12 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LaunchUtil.launchLoginActivity(MainActivity.this);
+            }
+        });
     }
 
     @Override
